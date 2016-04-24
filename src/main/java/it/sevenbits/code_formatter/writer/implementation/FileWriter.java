@@ -5,9 +5,9 @@ import it.sevenbits.code_formatter.writer.IWriter;
 import java.io.*;
 
 /**
- * Created by marina on 21.04.16.
+ * Class provides
  */
-public class FileWriter implements IWriter{
+public class FileWriter implements IWriter, Closeable {
 
     private Writer output;
 
@@ -22,5 +22,9 @@ public class FileWriter implements IWriter{
 
     public void print() {
 
+    }
+
+    public void close() throws IOException {
+        output.close();
     }
 }

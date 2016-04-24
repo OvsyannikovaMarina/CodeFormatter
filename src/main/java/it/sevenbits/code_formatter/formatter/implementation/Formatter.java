@@ -1,20 +1,24 @@
 package it.sevenbits.code_formatter.formatter.implementation;
 
+import it.sevenbits.code_formatter.formatter.IFormatter;
 import it.sevenbits.code_formatter.reader.IReader;
 import it.sevenbits.code_formatter.writer.IWriter;
 
 import java.io.IOException;
 
 /**
- * Created by marina on 21.04.16.
+ * Class provides formatting some code
  */
-public class Formatter {
+public class Formatter implements IFormatter {
 
-    private Formatter() {
+    /**
+     * Default constructor
+     */
+    public Formatter() {
 
     }
 
-    public static void format(IReader input, IWriter output) throws IOException {
+    public void format(IReader input, IWriter output) throws IOException {
         final int numberOfSpaces = 4;
         int currentSymbol;
         int lastSymbol = ' ';
@@ -24,7 +28,7 @@ public class Formatter {
             switch (currentSymbol) {
                 case '{' : {
                     charCount++;
-                    if (lastSymbol != ' '){
+                    if (lastSymbol != ' ') {
                         output.write(' ');
                     }
                     output.write('{');
@@ -66,12 +70,6 @@ public class Formatter {
                 }
 
                 default: {
-                    /*if((lastSymbol == ';') || (lastSymbol == '}') || (lastSymbol == '{')) {
-                        if (currentSymbol == ' ') {
-                            currentSymbol = lastSymbol;
-                            break;
-                        }
-                    }*/
                     output.write(currentSymbol);
                     break;
                 }
