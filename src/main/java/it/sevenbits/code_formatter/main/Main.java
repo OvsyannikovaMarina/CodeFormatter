@@ -37,6 +37,6 @@ public class Main {
         IReader stringIn = new StringReader(s_code);
         IWriter stringOut = new StringWriter();
         newFormatter.format(stringIn, stringOut);
-        stringOut.print();
+        System.out.println(stringOut.toString());
     }
 }

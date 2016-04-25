@@ -5,7 +5,7 @@ import it.sevenbits.code_formatter.writer.IWriter;
 import java.io.IOException;
 
 /**
- * Created by marina on 21.04.16.
+ * Class provides writing to String
  */
 public class StringWriter implements IWriter {
 
@@ -19,7 +19,8 @@ public class StringWriter implements IWriter {
         output.write(b);
     }
 
-    public void print() {
-        System.out.print(output.toString());
+    @Override
+    public String toString() {
+        return output.toString();
     }
 }

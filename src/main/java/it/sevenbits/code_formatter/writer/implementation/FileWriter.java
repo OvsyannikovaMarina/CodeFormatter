@@ -5,7 +5,7 @@ import it.sevenbits.code_formatter.writer.IWriter;
 import java.io.*;
 
 /**
- * Class provides
+ * Class provides writing to file
  */
 public class FileWriter implements IWriter, Closeable {
 
@@ -18,10 +18,6 @@ public class FileWriter implements IWriter, Closeable {
     public void write(int b) throws IOException {
         output.write(b);
         output.flush();
-    }
-
-    public void print() {
-
     }
 
     public void close() throws IOException {

@@ -1,11 +1,12 @@
 while (x==0) {
-    if(a = b) {
+    if(a == b) {
         System.out.print(x);
+        exit(0);
     }
 }
 
 for(int i = 0;
- i < max;
- i++) {
+i < max;
+i++) {
     System.out.print(arr[i]);
 }

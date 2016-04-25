@@ -36,6 +36,7 @@ public class Formatter implements IFormatter {
                     for (int i = 0; i < charCount * numberOfSpaces; i++) {
                         output.write(' ');
                     }
+                    lastSymbol = ' ';
                     break;
                 }
 
@@ -43,38 +44,40 @@ public class Formatter implements IFormatter {
                     if (charCount > 0) {
                         charCount--;
                     }
-                    if ((lastSymbol != '}') && (lastSymbol != ';')) {
-                        output.write('\n');
+                    if ((lastSymbol == '\n')) {
                         for (int i = 0; i < charCount * numberOfSpaces; i++) {
                             output.write(' ');
                         }
                     }
                     output.write('}');
                     output.write('\n');
-                    for (int i = 0; i < charCount * numberOfSpaces; i++) {
-                        output.write(' ');
-                    }
+                    lastSymbol = '\n';
                     break;
                 }
 
                 case ';': {
-                    if (charCount > 0) {
-                        charCount--;
-                    }
                     output.write(';');
                     output.write('\n');
-                    for (int i = 0; i < charCount * numberOfSpaces; i++) {
-                        output.write(' ');
-                    }
+                    lastSymbol = '\n';
                     break;
                 }
 
                 default: {
+                    if ((currentSymbol == ' ') && (lastSymbol == ' ')) {
+                        break;
+                    }
+                    if ((lastSymbol == '\n') && (currentSymbol == ' ')) {
+                        for (int i = 0; i < charCount * numberOfSpaces; i++) {
+                            output.write(' ');
+                        }
+                        lastSymbol = ' ';
+                        break;
+                    }
                     output.write(currentSymbol);
+                    lastSymbol = currentSymbol;
                     break;
                 }
             }
-            lastSymbol = currentSymbol;
         }
     }
 }
