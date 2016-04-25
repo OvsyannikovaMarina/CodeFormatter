@@ -1,6 +1,6 @@
 package it.sevenbits.code_formatter.main;
 
-import it.sevenbits.code_formatter.formatter.implementation.Formatter;
+import it.sevenbits.code_formatter.formatter.Formatter;
 import it.sevenbits.code_formatter.reader.IReader;
 import it.sevenbits.code_formatter.reader.implementation.*;
 import it.sevenbits.code_formatter.writer.IWriter;

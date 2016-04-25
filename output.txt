@@ -10,3 +10,4 @@ i < max;
 i++) {
     System.out.print(arr[i]);
 }
+// хеппи енд

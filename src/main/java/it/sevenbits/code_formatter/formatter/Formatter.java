@@ -1,6 +1,5 @@
-package it.sevenbits.code_formatter.formatter.implementation;
+package it.sevenbits.code_formatter.formatter;
 
-import it.sevenbits.code_formatter.formatter.IFormatter;
 import it.sevenbits.code_formatter.reader.IReader;
 import it.sevenbits.code_formatter.writer.IWriter;
 
@@ -9,7 +8,7 @@ import java.io.IOException;
 /**
  * Class provides formatting some code
  */
-public class Formatter implements IFormatter {
+public class Formatter {
 
     /**
      * Default constructor
