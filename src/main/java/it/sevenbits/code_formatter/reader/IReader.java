@@ -6,5 +6,5 @@ import java.io.IOException;
  * Interface for reading classes
  */
 public interface IReader {
-    int read() throws IOException;
+    int read() throws ReaderException;
 }

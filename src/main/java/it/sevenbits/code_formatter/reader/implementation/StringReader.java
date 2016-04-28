@@ -1,12 +1,13 @@
 package it.sevenbits.code_formatter.reader.implementation;
 
 import it.sevenbits.code_formatter.reader.IReader;
+import it.sevenbits.code_formatter.reader.ReaderException;
 
 import java.io.IOException;
 import java.io.Reader;
 
 /**
- * Created by marina on 20.04.16.
+ * Class provides reading from String
  */
 public class StringReader implements IReader {
 
@@ -16,7 +17,12 @@ public class StringReader implements IReader {
         string_reader = new java.io.StringReader(s);
     }
 
-    public int read() throws IOException {
-        return string_reader.read();
+    public int read() throws ReaderException {
+        try {
+            return string_reader.read();
+        } catch (IOException e) {
+            throw new ReaderException(e);
+        }
+
     }
 }

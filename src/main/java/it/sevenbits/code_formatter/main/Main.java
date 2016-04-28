@@ -2,11 +2,11 @@ package it.sevenbits.code_formatter.main;
 
 import it.sevenbits.code_formatter.formatter.Formatter;
 import it.sevenbits.code_formatter.reader.IReader;
+import it.sevenbits.code_formatter.reader.ReaderException;
 import it.sevenbits.code_formatter.reader.implementation.*;
 import it.sevenbits.code_formatter.writer.IWriter;
+import it.sevenbits.code_formatter.writer.WriterException;
 import it.sevenbits.code_formatter.writer.implementation.*;
-
-import java.io.IOException;
 
 /**
  * Main class
@@ -22,9 +22,10 @@ public class Main {
     /**
      * Entry point
      * @param args arguments
-     * @throws IOException
+     * @throws ReaderException
+     * @throws WriterException
      */
-    public static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) throws ReaderException, WriterException {
 
         Formatter newFormatter = new Formatter();
 
@@ -33,7 +34,7 @@ public class Main {
         newFormatter.format(fileIn, fileOut);
 
 
-        String s_code = "while(x==0){print(x);}";
+        String s_code = "while(x==0){\n    print(x);}";
         IReader stringIn = new StringReader(s_code);
         IWriter stringOut = new StringWriter();
         newFormatter.format(stringIn, stringOut);

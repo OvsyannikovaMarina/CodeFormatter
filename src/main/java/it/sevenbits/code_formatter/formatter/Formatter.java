@@ -1,9 +1,9 @@
 package it.sevenbits.code_formatter.formatter;
 
 import it.sevenbits.code_formatter.reader.IReader;
+import it.sevenbits.code_formatter.reader.ReaderException;
 import it.sevenbits.code_formatter.writer.IWriter;
-
-import java.io.IOException;
+import it.sevenbits.code_formatter.writer.WriterException;
 
 /**
  * Class provides formatting some code
@@ -17,7 +17,7 @@ public class Formatter {
 
     }
 
-    public void format(IReader input, IWriter output) throws IOException {
+    public void format(IReader input, IWriter output) throws ReaderException, WriterException {
         final int numberOfSpaces = 4;
         int currentSymbol;
         int lastSymbol = ' ';
@@ -58,6 +58,10 @@ public class Formatter {
                     output.write(';');
                     output.write('\n');
                     lastSymbol = '\n';
+                    break;
+                }
+
+                case '\n': {
                     break;
                 }
 

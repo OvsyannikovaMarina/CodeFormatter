@@ -1,6 +1,7 @@
 package it.sevenbits.code_formatter.writer.implementation;
 
 import it.sevenbits.code_formatter.writer.IWriter;
+import it.sevenbits.code_formatter.writer.WriterException;
 
 import java.io.IOException;
 
@@ -15,7 +16,7 @@ public class StringWriter implements IWriter {
         output = new java.io.StringWriter();
     }
 
-    public void write(int b) throws IOException {
+    public void write(int b) throws WriterException {
         output.write(b);
     }
 
