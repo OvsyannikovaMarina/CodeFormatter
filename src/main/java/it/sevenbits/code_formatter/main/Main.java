@@ -1,6 +1,7 @@
 package it.sevenbits.code_formatter.main;
 
 import it.sevenbits.code_formatter.formatter.Formatter;
+import it.sevenbits.code_formatter.formatter.FormatterException;
 import it.sevenbits.code_formatter.reader.IReader;
 import it.sevenbits.code_formatter.reader.ReaderException;
 import it.sevenbits.code_formatter.reader.implementation.*;
@@ -25,7 +26,7 @@ public class Main {
      * @throws ReaderException
      * @throws WriterException
      */
-    public static void main(final String[] args) throws ReaderException, WriterException {
+    public static void main(final String[] args) throws ReaderException, WriterException, FormatterException {
 
         Formatter newFormatter = new Formatter();
 
@@ -34,7 +35,7 @@ public class Main {
         newFormatter.format(fileIn, fileOut);
 
 
-        String s_code = "while(x==0){\n    print(x);}";
+        String s_code = "()&&()";
         IReader stringIn = new StringReader(s_code);
         IWriter stringOut = new StringWriter();
         newFormatter.format(stringIn, stringOut);

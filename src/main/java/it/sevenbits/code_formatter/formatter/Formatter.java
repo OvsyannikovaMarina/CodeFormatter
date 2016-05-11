@@ -1,9 +1,7 @@
 package it.sevenbits.code_formatter.formatter;
 
 import it.sevenbits.code_formatter.reader.IReader;
-import it.sevenbits.code_formatter.reader.ReaderException;
 import it.sevenbits.code_formatter.writer.IWriter;
-import it.sevenbits.code_formatter.writer.WriterException;
 
 /**
  * Class provides formatting some code
@@ -17,70 +15,169 @@ public class Formatter {
 
     }
 
-    public void format(IReader input, IWriter output) throws ReaderException, WriterException {
+    public void format(IReader input, IWriter output) throws FormatterException {
         final int numberOfSpaces = 4;
         int currentSymbol;
         int lastSymbol = ' ';
         int charCount = 0;
 
-        while ((currentSymbol = input.read()) != -1) {
-            switch (currentSymbol) {
-                case '{' : {
-                    charCount++;
-                    if (lastSymbol != ' ') {
-                        output.write(' ');
-                    }
-                    output.write('{');
-                    output.write('\n');
-                    for (int i = 0; i < charCount * numberOfSpaces; i++) {
-                        output.write(' ');
-                    }
-                    lastSymbol = ' ';
-                    break;
-                }
-
-                case '}': {
-                    if (charCount > 0) {
-                        charCount--;
-                    }
-                    if ((lastSymbol == '\n')) {
-                        for (int i = 0; i < charCount * numberOfSpaces; i++) {
+        try {
+            while ((currentSymbol = input.read()) != -1) {
+                switch (currentSymbol) {
+                    case '{' : {
+                        charCount++;
+                        if (lastSymbol != ' ') {
                             output.write(' ');
                         }
-                    }
-                    output.write('}');
-                    output.write('\n');
-                    lastSymbol = '\n';
-                    break;
-                }
-
-                case ';': {
-                    output.write(';');
-                    output.write('\n');
-                    lastSymbol = '\n';
-                    break;
-                }
-
-                case '\n': {
-                    break;
-                }
-
-                default: {
-                    if ((currentSymbol == ' ') && (lastSymbol == ' ')) {
+                        output.write(currentSymbol);
+                        output.write('\n');
+                        lastSymbol = '\n';
                         break;
                     }
-                    if ((lastSymbol == '\n') && (currentSymbol == ' ')) {
-                        for (int i = 0; i < charCount * numberOfSpaces; i++) {
+
+                    case '}': {
+                        if (charCount > 0) {
+                            charCount--;
+                        }
+                        if ((lastSymbol == '\n')) {
+                            for (int i = 0; i < charCount * numberOfSpaces; i++) {
+                                output.write(' ');
+                            }
+                        }
+                        output.write(currentSymbol);
+                        output.write('\n');
+                        lastSymbol = '\n';
+                        break;
+                    }
+
+                    case ';': {
+                        output.write(currentSymbol);
+                        output.write('\n');
+                        lastSymbol = '\n';
+                        break;
+                    }
+
+                    case '\n': {
+                        break;
+                    }
+
+                    case '(': {
+                        if (lastSymbol != ' '){
                             output.write(' ');
                         }
+                        output.write(currentSymbol);
+                        lastSymbol = currentSymbol;
+                        break;
+                    }
+
+                    case ')': {
+                        output.write(currentSymbol);
+                        output.write(' ');
                         lastSymbol = ' ';
                         break;
                     }
-                    output.write(currentSymbol);
-                    lastSymbol = currentSymbol;
-                    break;
+                    case '+': {
+                    }
+
+                    case '-': {
+                    }
+
+                    case '*': {
+                    }
+
+                    case '/': {
+                    }
+
+                    case '&': {
+                    }
+
+                    case '|': {
+                        if (currentSymbol == lastSymbol) {
+                            output.write(currentSymbol);
+                            output.write(' ');
+                            lastSymbol = ' ';
+                            break;
+                        } else if (lastSymbol == ' ') {
+                            output.write(currentSymbol);
+                            lastSymbol = currentSymbol;
+                            break;
+                        } else {
+                            output.write(' ');
+                            output.write(currentSymbol);
+                            lastSymbol = currentSymbol;
+                        }
+                        break;
+                    }
+
+                    case '<': {
+                    }
+
+                    case '>': {
+                    }
+
+                    case '!': {
+                        if (lastSymbol == ' ') {
+                            output.write(currentSymbol);
+                            lastSymbol = currentSymbol;
+                            break;
+                        }
+                        output.write(' ');
+                        output.write(currentSymbol);
+                        lastSymbol = currentSymbol;
+                        break;
+                    }
+
+                    case '=': {
+                        if ((lastSymbol == '!') || (lastSymbol == '>') || (lastSymbol == '<')
+                                || (lastSymbol == '+') || (lastSymbol == '-') || (lastSymbol == '*')
+                                || (lastSymbol == '/') || (lastSymbol == '=')) {
+                            output.write(currentSymbol);
+                            output.write(' ');
+                            lastSymbol = ' ';
+                            break;
+                        } else if (lastSymbol != ' ') {
+                            output.write(' ');
+                        }
+                        output.write(currentSymbol);
+                        lastSymbol = currentSymbol;
+                        break;
+                    }
+
+                    case ' ': {
+                        if (lastSymbol == ' ') {
+                            break;
+                        }
+                        if (lastSymbol == '\n') {
+                            for (int i = 0; i < charCount * numberOfSpaces; i++) {
+                                output.write(' ');
+                            }
+                            lastSymbol = ' ';
+                            break;
+                        }
+                        output.write(' ');
+                        lastSymbol = ' ';
+                        break;
+                    }
+
+                    default: {
+                        if ((lastSymbol == '&') || (lastSymbol == '|') || (lastSymbol == '=')
+                                || (lastSymbol == '>') || (lastSymbol == '<') || (lastSymbol == '+')
+                                || (lastSymbol == '-') || (lastSymbol == '*') || (lastSymbol == '/')) {
+                            output.write(' ');
+                        } else if (lastSymbol == '\n') {
+                            for (int i = 0; i < charCount * numberOfSpaces; i++) {
+                                output.write(' ');
+                            }
+                        }
+                        output.write(currentSymbol);
+                        lastSymbol = currentSymbol;
+                        break;
+                    }
                 }
             }
+        } catch (Exception e) {
+            throw new FormatterException(e);
         }
+
     }
 }
