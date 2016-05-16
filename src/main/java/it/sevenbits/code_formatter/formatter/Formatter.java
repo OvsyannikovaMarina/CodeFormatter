@@ -2,6 +2,7 @@ package it.sevenbits.code_formatter.formatter;
 
 import it.sevenbits.code_formatter.reader.IReader;
 import it.sevenbits.code_formatter.writer.IWriter;
+import it.sevenbits.code_formatter.writer.WriterException;
 
 /**
  * Class provides formatting some code
@@ -40,9 +41,7 @@ public class Formatter {
                             charCount--;
                         }
                         if ((lastSymbol == '\n')) {
-                            for (int i = 0; i < charCount * numberOfSpaces; i++) {
-                                output.write(' ');
-                            }
+                            insertIndent(output, numberOfSpaces, charCount);
                         }
                         output.write(currentSymbol);
                         output.write('\n');
@@ -76,21 +75,11 @@ public class Formatter {
                         lastSymbol = ' ';
                         break;
                     }
-                    case '+': {
-                    }
-
-                    case '-': {
-                    }
-
-                    case '*': {
-                    }
-
-                    case '/': {
-                    }
-
-                    case '&': {
-                    }
-
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '&':
                     case '|': {
                         if (currentSymbol == lastSymbol) {
                             output.write(currentSymbol);
@@ -109,12 +98,8 @@ public class Formatter {
                         break;
                     }
 
-                    case '<': {
-                    }
-
-                    case '>': {
-                    }
-
+                    case '<':
+                    case '>':
                     case '!': {
                         if (lastSymbol == ' ') {
                             output.write(currentSymbol);
@@ -148,9 +133,7 @@ public class Formatter {
                             break;
                         }
                         if (lastSymbol == '\n') {
-                            for (int i = 0; i < charCount * numberOfSpaces; i++) {
-                                output.write(' ');
-                            }
+                            insertIndent(output, numberOfSpaces, charCount);
                             lastSymbol = ' ';
                             break;
                         }
@@ -165,9 +148,7 @@ public class Formatter {
                                 || (lastSymbol == '-') || (lastSymbol == '*') || (lastSymbol == '/')) {
                             output.write(' ');
                         } else if (lastSymbol == '\n') {
-                            for (int i = 0; i < charCount * numberOfSpaces; i++) {
-                                output.write(' ');
-                            }
+                            insertIndent(output, numberOfSpaces, charCount);
                         }
                         output.write(currentSymbol);
                         lastSymbol = currentSymbol;
@@ -179,5 +160,11 @@ public class Formatter {
             throw new FormatterException(e);
         }
 
+    }
+
+    private static void insertIndent(IWriter output, int numberOfSpaces, int charCount) throws WriterException {
+        for (int i = 0; i < charCount * numberOfSpaces; i++) {
+            output.write(' ');
+        }
     }
 }

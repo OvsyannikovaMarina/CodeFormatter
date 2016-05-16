@@ -35,8 +35,8 @@ public class Main {
         newFormatter.format(fileIn, fileOut);
 
 
-        String s_code = "()&&()";
-        IReader stringIn = new StringReader(s_code);
+        String stringCode = "()&&()";
+        IReader stringIn = new StringReader(stringCode);
         IWriter stringOut = new StringWriter();
         newFormatter.format(stringIn, stringOut);
         System.out.println(stringOut.toString());
