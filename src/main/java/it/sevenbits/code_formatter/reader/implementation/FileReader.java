@@ -33,5 +33,3 @@ public class FileReader implements IReader, Closeable{
         file_reader.close();
     }
 }
-//AndreyKolyanov
-//чт 5, 12

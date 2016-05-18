@@ -1,26 +1,33 @@
 package it.sevenbits.code_formatter.formatter;
 
+import it.sevenbits.code_formatter.propertyReader.PropertyException;
 import it.sevenbits.code_formatter.reader.IReader;
 import it.sevenbits.code_formatter.writer.IWriter;
 import it.sevenbits.code_formatter.writer.WriterException;
+
+import static it.sevenbits.code_formatter.propertyReader.PropertyReader.readIndentCount;
+import static it.sevenbits.code_formatter.propertyReader.PropertyReader.readIndentSymbol;
 
 /**
  * Class provides formatting some code
  */
 public class Formatter {
-
+    private final int numberOfIndentSymbols;
+    private final int indentSymbol;
+    private int charCount;
     /**
      * Default constructor
      */
-    public Formatter() {
-
+    public Formatter() throws PropertyException {
+        numberOfIndentSymbols = readIndentCount();
+        indentSymbol = readIndentSymbol();
+        charCount = 0;
     }
 
-    public void format(IReader input, IWriter output) throws FormatterException {
-        final int numberOfSpaces = 4;
+    public void format(IReader input, IWriter output) throws FormatterException, PropertyException {
+
         int currentSymbol;
         int lastSymbol = ' ';
-        int charCount = 0;
 
         try {
             while ((currentSymbol = input.read()) != -1) {
@@ -41,7 +48,7 @@ public class Formatter {
                             charCount--;
                         }
                         if ((lastSymbol == '\n')) {
-                            insertIndent(output, numberOfSpaces, charCount);
+                            insertIndent(output, numberOfIndentSymbols, charCount, indentSymbol);
                         }
                         output.write(currentSymbol);
                         output.write('\n');
@@ -133,7 +140,7 @@ public class Formatter {
                             break;
                         }
                         if (lastSymbol == '\n') {
-                            insertIndent(output, numberOfSpaces, charCount);
+                            insertIndent(output, numberOfIndentSymbols, charCount, indentSymbol);
                             lastSymbol = ' ';
                             break;
                         }
@@ -148,7 +155,7 @@ public class Formatter {
                                 || (lastSymbol == '-') || (lastSymbol == '*') || (lastSymbol == '/')) {
                             output.write(' ');
                         } else if (lastSymbol == '\n') {
-                            insertIndent(output, numberOfSpaces, charCount);
+                            insertIndent(output, numberOfIndentSymbols, charCount, indentSymbol);
                         }
                         output.write(currentSymbol);
                         lastSymbol = currentSymbol;
@@ -162,9 +169,9 @@ public class Formatter {
 
     }
 
-    private static void insertIndent(IWriter output, int numberOfSpaces, int charCount) throws WriterException {
-        for (int i = 0; i < charCount * numberOfSpaces; i++) {
-            output.write(' ');
+    private static void insertIndent(IWriter output, int numberOfIndentSymbols, int charCount, int indentSymbol) throws WriterException {
+        for (int i = 0; i < charCount * numberOfIndentSymbols; i++) {
+            output.write(indentSymbol);
         }
     }
 }
