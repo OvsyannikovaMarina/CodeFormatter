@@ -2,6 +2,7 @@ package it.sevenbits.code_formatter.formatter;
 
 import it.sevenbits.code_formatter.propertyReader.PropertyException;
 import it.sevenbits.code_formatter.reader.IReader;
+import it.sevenbits.code_formatter.states.FormatterState;
 import it.sevenbits.code_formatter.writer.IWriter;
 import it.sevenbits.code_formatter.writer.WriterException;
 
@@ -12,6 +13,8 @@ import static it.sevenbits.code_formatter.propertyReader.PropertyReader.readInde
  * Class provides formatting some code
  */
 public class Formatter {
+
+    private FormatterState state = FormatterState.DEFAULT_STATE;
     private final int numberOfIndentSymbols;
     private final int indentSymbol;
     private int charCount;
